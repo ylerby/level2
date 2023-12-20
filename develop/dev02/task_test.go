@@ -12,9 +12,9 @@ func Test_StringUnpacking(t *testing.T) {
 		{"есть повторяющиеся элементы", "a4bc2d5e", "aaaabccddddde"},
 		{"нет повторяющихся элементов", "abcd", "abcd"},
 		{"некорректная строка", "45", ""},
-		{"", `qwe\4\5`, "qwe45"},
-		{"", `qwe\45`, "qwe44444"},
-		{"", `qwe\\5`, "qwe\\\\\\\\\\"},
+		{"есть escape символы", `qwe\4\5`, "qwe45"},
+		{"есть escape символы 2", `qwe\45`, "qwe44444"},
+		{"есть повторяющиеся escape символы", `qwe\\5`, "qwe\\\\\\\\\\"},
 	}
 
 	for index, value := range testCases {
