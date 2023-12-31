@@ -5,8 +5,8 @@ import (
 	"dev11/internal/responses"
 	"dev11/internal/service/calendar"
 	"dev11/internal/service/validation"
-	"log"
 	"net/http"
+	"os"
 )
 
 type Application struct {
@@ -16,13 +16,13 @@ type Application struct {
 	Validator *validation.Validator
 }
 
-func New() *Application {
+func New(port string) *Application {
 	return &Application{
 		Server: &http.Server{
-			Addr: "8080",
+			Addr: port,
 		},
 		Calendar: &calendar.Calendar{
-			CalendarMap: make(map[string]calendar.Events),
+			CalendarMap: make(map[string][]calendar.Events),
 		},
 		Response:  &responses.Responses{},
 		Validator: &validation.Validator{},
@@ -37,9 +37,9 @@ func (a *Application) Run() {
 	http.HandleFunc("/create_events", middleware.LoggingMiddleware("POST", a.CreateEventHandler))
 	http.HandleFunc("/update_events", middleware.LoggingMiddleware("POST", a.UpdateEventHandler))
 	http.HandleFunc("/delete_events", middleware.LoggingMiddleware("POST", a.DeleteEventHandler))
-	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
-		log.Println(a.Calendar.CalendarMap)
-	})
 
-	http.ListenAndServe("localhost:8080", nil)
+	err := http.ListenAndServe("localhost:8080", nil)
+	if err != nil {
+		os.Exit(1)
+	}
 }

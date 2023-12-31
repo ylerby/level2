@@ -1,26 +1,14 @@
 package schemas
 
 type ErrorResponseSchema struct {
-	ErrorMessage string
+	Error string
 }
 
 type ResultResponseSchema struct {
-	ResultMessage interface{}
+	Result interface{}
 }
 
-type CreateEventRequest struct {
-	EventName string `json:"event_name"`
-	UserId    int    `json:"user_id"`
-	Date      string `json:"date"`
-}
-
-type UpdateEventRequest struct {
-	EventName string `json:"event_name"`
-	UserId    int    `json:"user_id"`
-	Date      string `json:"date"`
-}
-
-type DeleteEventRequest struct {
+type CreateUpdateDeleteEventRequest struct {
 	EventName string `json:"event_name"`
 	UserId    int    `json:"user_id"`
 	Date      string `json:"date"`

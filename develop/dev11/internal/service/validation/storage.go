@@ -6,9 +6,8 @@ import (
 )
 
 type ValidatorServiceInterface interface {
-	CreateEventRequestValidation(r *schemas.CreateEventRequest) (calendar.Events, string)
-	UpdateEventRequestValidation(r *schemas.UpdateEventRequest) (calendar.Events, string)
-	DeleteEventRequestValidation(r *schemas.DeleteEventRequest) (calendar.Events, string)
+	CreateUpdateDeleteEventRequestValidation(r *schemas.CreateUpdateDeleteEventRequest) (calendar.Events, string, error)
+	GetRequestValidation(day, month string) (string, string, error)
 }
 
 type Validator struct{}

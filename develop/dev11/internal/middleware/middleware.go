@@ -12,7 +12,7 @@ func LoggingMiddleware(httpMethod string, next http.HandlerFunc) http.HandlerFun
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != httpMethod {
 			jsonResponse, err := json.Marshal(schemas.ErrorResponseSchema{
-				ErrorMessage: "Method not allowed",
+				Error: "Method not allowed",
 			})
 			if err != nil {
 				os.Exit(1)

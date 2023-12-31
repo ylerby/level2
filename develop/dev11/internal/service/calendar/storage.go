@@ -1,19 +1,19 @@
 package calendar
 
 type EventsServiceInterface interface {
-	Create(currentEventName string, event Events) error
-	Update(currentEventName string, event Events) error
-	Delete(currentEventName string, event Events) error
-	GetEventsForDay(day string)
-	GetEventsForWeek(week string)
-	GetEventsForMonth(month string)
+	Create(event Events, date string) error
+	Update(event Events, date string) error
+	Delete(event Events, date string) error
+	GetEventsForDay(day, month, year string) ([]Events, error)
+	GetEventsForWeek(day, month, year string) ([][]Events, error)
+	GetEventsForMonth(month, year string) ([][]Events, error)
 }
 
 type Calendar struct {
-	CalendarMap map[string]Events
+	CalendarMap map[string][]Events
 }
 
 type Events struct {
-	UserId int
-	Date   string
+	UserId    int
+	EventName string
 }
